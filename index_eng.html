@@ -1,0 +1,166 @@
+<html lang="en">
+<meta charset="UTF-8">
+  <head>
+    <title>
+	Blood Lactate Threshold Calculator
+    </title>
+    <!--  -->
+    <meta name="description" content="Discover the Blood Lactate Threshold Calculator. 
+    An advanced tool for athletes, coaches, and fitness enthusiasts
+     to optimize performance using polynomial regression models.">
+     <!--  -->
+     <meta name="keywords" content="blood lactate threshold calculator, 
+     lactate calculator, 
+     performance optimization,
+      polynomial regression models, 
+      sports science">
+     <!--  -->
+     <meta name="author" content="Rafet Irmak, PhD PT">
+     <!--  -->
+     <meta property="og:title" content="Blood Lactate Threshold Calculator">
+	<meta property="og:description" content="Calculate your blood lactate threshold online. Ideal for athletes and coaches.">
+	<meta property="og:image" content="https://yourwebsite.com/assets/graph-image.png">
+	<meta property="og:url" content="https://yourwebsite.com/blood-lactate-threshold-calculator">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="Blood Lactate Threshold Calculator">
+	<meta name="twitter:description" content="Discover an advanced online tool for calculating blood lactate thresholds.">
+	<meta name="twitter:image" content="https://yourwebsite.com/assets/graph-image.png">
+     <!--  -->
+     
+    
+    
+    
+    
+    <!--  -->
+    <link rel="stylesheet" type="text/css" href="kaynak_dosyalar/default_article.css"/>
+    <script type="text/javascript" src="matrix_processor.js"></script>
+    <script type="text/javascript" src="polysolve.js"></script> <!--[if IE]><script type="text/javascript" src="/excanvas/excanvas.js"></script><![endif]-->
+    <link rel="stylesheet" type="text/css" href="kaynak_dosyalar/default.css"/>
+    <link rel="stylesheet" type="text/css" href="kaynak_dosyalar/polysolve.css"/>
+    <script type="text/javascript" src="kaynak_dosyalar/dictionary_access.js"></script>
+  </head>
+           
+    
+	
+	
+	      <body>
+      
+	  			<center>  
+	  			<h1>Ploynominal Regression Models of Blood Lactate Threshold</h1>
+				Copyright © 2013, P. Lutus
+				Adapted from JavaScript PolySolve (07.20.2013) <br>
+				Copyright © 2014 ,Adaptated by Rafet IRMAK
+				</center>
+	  
+       
+         
+      
+	  <div class="article_wrapper">
+	  	    <a name="The_Program"></a><div class="article_subtopic">Blood Lactate Threshold Calculator</div>
+      <div class="roundcorner_16_parch_content">
+	  
+	  
+	  
+	  
+	  
+          <p style="width:860"><b>Data Entry (Workload Blood Lactate):</b>
+		  <span style="color:gray;"><span class="hovernote" title="Use this window to enter input data for analysis. Type or copy text from the system clipboard &mdash; data should be ordered in sequential x,y pairs, but apart from that, nearly any format will be accepted except numbers with embedded thousands separators (i.e. commas)."></span>
+          </span> <span style="color:gray;float:right;">Select: Ctrl+A | Copy: Ctrl+C | Paste: Ctrl+V</span></p>
+          
+          
+          
+          <code>
+          <div class="data_entry shadow">
+<textarea class="scroll_textarea" id="data_entry" title="Enter or paste x,y paired data in this window (don't use commas as delimiters)" onkeyup="poly.generate_result();">
+0 1
+60 1.5
+80 2
+100 2.5
+120 3.5
+140 5
+160 8
+180 12
+</textarea>
+</div>
+          </code>
+          <p><b>Workload Blood Lactate Curve:<span class="hovernote" title="This chart can be used to evaluate how well the polynomial agrees with the data"></span></p>
+		  <br> To see calculated lactate and workload values; move the mouse over the graph by pressing the left button.</b>
+          
+          
+       
+          <div id="chart_wrapper" >
+            <!-- chart graphic div -->
+            <div id="textPane0" class="text_graph">
+              <canvas id="graphicPane1" class="canvas_graph shadow"></canvas>
+            </div>
+            <!-- chart text div -->
+            <div id="textPane1" class="text_graph" title="Click chart for specific values">
+            </div>
+          </div><!-- chart wrapper -->
+		  
+		   
+          <div id="control_panel" class="control_panel shadow">
+		     <table border="0" class="control_table">
+              <tr>
+                
+                <td title="Reverse all data pairs x,y -> y,x"><input id="reverse_checkbox"  type="checkbox" onclick="poly.adjust_degree(0)" checked>Inverse Regression</input></td></tr>
+				<tr>
+                <td> Degree of Polynominal Regression Model:</td>
+                
+				
+				<td title = "Decrease the polynomial degree"><button  onclick="poly.adjust_degree(-1);"><img src="kaynak_dosyalar/arrow-left.png" width="22" height="22" title="" alt=""/></button></td>
+				
+                <td title="Current polynomial degree"><span class="num_disp"  id="poly_degree_field">99</span></td>
+                
+				<td title="Increase the polynomial degree"><button  onclick="poly.adjust_degree(1);"><img src="kaynak_dosyalar/arrow-right.png" width="22" height="22" title="" alt=""/></button></td>
+                
+				<td title = "Choose the highest polynomial degree consistent with the present data. This won't necessarily produce the best outcome."><button  onclick="poly.set_optimum();"><img src="kaynak_dosyalar/arrow-up-double.png" style="vertical-align:middle;" width="22" height="22" title="" alt=""/>&nbsp;&nbsp;Best Fit </button></td>
+                
+				<td title = "Solve using the present data and degree"><button  onclick="poly.adjust_degree(0);"><img src="kaynak_dosyalar/mail-mark-notjunk.png" style="vertical-align:middle;" width="22" height="22" title="" alt=""/>&nbsp;&nbsp;Solve</button></td>
+                
+				<td title="Cycle through the available output forms"><button  onclick="poly.change_output_form();"><img src="kaynak_dosyalar/story-editor.png" style="vertical-align:middle;" width="22" height="22" title="" alt=""/>&nbsp;&nbsp;Output</button></td>
+                
+                <td title="Create graphic of this chart in separate browser window"><button  onclick="poly.generate_graphic();"><img src="kaynak_dosyalar/office-chart-line.png" style="vertical-align:middle;" width="22" height="22" title="" alt=""/>&nbsp;&nbsp;Graph</button></td>
+              </tr>
+            </table>
+          </div>
+          
+          <p style="width:860"><b>Result:</b><span class="hovernote" title="Use this window to review and/or copy the polynomial analysis results"></span>
+		    <br> Regression Model is used to explain (y)=lactate(x) relation,
+			 <br> Inverse Regression Model is used to explain lactate(y)=work load (x) relation<br>
+			 <br> Inverse regression model is used to calculate the workload for a given fixed blood lactate threshold like 4 mmol
+			 
+		  
+		  <span style="color:gray;float:right;">Select: Ctrl+A | Copy: Ctrl+C | Paste: Ctrl+V</span></p>
+          <div class="data_entry shadow">
+            <textarea title="Copy results from this window" id="results_area" class="scroll_textarea" ></textarea>
+          </div>
+          <p style="width:860"><b>Table:</b><span class="hovernote" title="Use this window  to create a table of x,y data based on the polynomial coefficients generated above"></span><span style="color:gray;float:right;">Select: Ctrl+A | Copy: Ctrl+C | Paste: Ctrl+V</span></p>
+          
+          <div class="data_entry shadow">
+            <textarea title="Click &quot;Generate Table&quot; below, then copy results from this window" id="table_results_area" class="scroll_textarea"></textarea>
+          </div>
+          
+          <div id="table_control_panel" class="control_panel shadow">
+            <table border="0" class="control_table">
+              <tr>
+                <td>Initial:</td>
+                <td><input id="table_start" type="text" title="Enter a table x start value" class="value_field"></input></td>
+                <td>Final:</td>
+                <td><input id="table_end" type="text" title="Enter a table x end value" class="value_field"></input></td>
+                <td>Step:</td>
+                <td><input id="table_step" type="text" title="Enter a table x step value (the distance between rows)" class="value_field"></input></td>
+                <td>Decimal:</td>
+                <td><input id="table_decimals" title="Enter the desired decimal precision" type="text" value="2" class="value_field"></input></td>
+                <td title="Use exponential notation rather than fixed-point"><input id="table_exponent" type="checkbox" >Exponential</input></td>
+                <td><button id="generate_table_button" title="Generate a comma-separated-value (CSV) table and put the results in the window above" onClick="poly.generate_table();"><img src="kaynak_dosyalar/view-pim-journal.png" style="vertical-align:middle;" width="22" height="22" title="" alt=""/>&nbsp;&nbsp;Create Table</input></td>
+              </tr>
+            </table>
+          </div>
+          
+        </blockquote>
+        
+</div>
+</div>        
+         </body>
+</html>

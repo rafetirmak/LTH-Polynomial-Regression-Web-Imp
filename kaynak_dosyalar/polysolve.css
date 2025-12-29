@@ -1,0 +1,104 @@
+div, input, textarea {
+  border-radius:8px;
+  -moz-border-radius:8px;
+  -webkit-border-radius:8px;
+}
+
+button {
+  border-radius:4px;
+  -moz-border-radius:4px;
+  -webkit-border-radius:4px;
+}
+
+.num_disp {
+  text-align:center;
+}
+
+.data_entry {
+  width:850px;
+  height:300px;
+  padding:8px;
+  border:1px solid #808080;
+  resize:vertical;
+  overflow:auto;
+  
+}
+
+.data_entry:hover {
+  cursor:move;
+}
+
+.scroll_textarea {
+  border:none;
+  width:99%;
+  height:96%;
+  resize:none;
+}
+
+.control_table tr td,.control_table_bot tr td {
+  text-align:center;
+  padding:2px;
+  white-space:nowrap;
+}
+
+.right_align td {
+  text-align:right;
+}
+
+.control_table {
+  width:100%;
+  border-collapse:collapse;
+}
+
+#chart_wrapper {
+  position:relative;
+  margin-top:20px;
+  margin-left:auto;
+  margin-right:auto;
+  margin-bottom:12px;
+  padding-left:8px;
+}
+
+.text_graph,.canvas_graph {
+  position:absolute;
+  margin:0px;
+  padding-right:6px;
+  left:0px;
+  top:0px;
+  border-radius:8px;
+  -moz-border-radius:8px;
+  -webkit-border-radius:8px;
+}
+
+.text_graph {
+  background-color:transparent;
+}
+
+.canvas_graph {
+  background-color:#ffffff;
+  border:1px solid #808080;
+}
+
+.control_panel {
+  width:866px;
+  background-color:#f0fff0;
+  border:1px solid #808080;
+  margin-top:12px;
+}
+
+.value_field {
+  width:80px;
+  border-radius:4px;
+  -moz-border-radius:4px;
+  -webkit-border-radius:4px;
+  text-align:right;
+  padding-right:4px;
+}
+
+.hidden_class {
+  display:none;
+}
+
+.visible_class {
+  display:visible;
+}
