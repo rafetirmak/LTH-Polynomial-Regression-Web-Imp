@@ -1,4 +1,5 @@
 # LTH-Polynomial-Regression-Web (v2.0)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18081697.svg)](https://doi.org/10.5281/zenodo.18081697)
 
 Description: This repository contains a modern web-based implementation (v2.0) for determining the Blood Lactate Threshold (LTH). 
 The software utilizes advanced polynomial regression models to analyze lactate response to exercise, providing athletes, coaches, and sports scientists with a precise statistical tool for performance optimization.
