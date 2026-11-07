@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="tr" id="html_root">
+<head>
+  <meta charset="UTF-8">
+  <title id="txt_page_title">Kan Laktat Eşiği Hesaplayıcısı</title>
+  <script type="text/javascript" src="matrix_processor.js?v=2"></script>
+  <script type="text/javascript" src="polysolve.js?v=2"></script> <!--[if IE]><script type="text/javascript" src="/excanvas/excanvas.js"></script><![endif]-->
+  <link rel="stylesheet" type="text/css" href="kaynak_dosyalar/default_article.css"/>
+  <link rel="stylesheet" type="text/css" href="kaynak_dosyalar/default.css"/>
+  <link rel="stylesheet" type="text/css" href="kaynak_dosyalar/polysolve.css"/>
+  <style>
+    .lang-btn {
+      cursor: pointer;
+      padding: 4px 12px;
+      border-radius: 16px;
+      background: #eef2f5;
+      border: 1px solid #bdc3c7;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.12);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: bold;
+      color: #2c3e50;
+      float: right;
+      margin-top: -2px;
+      user-select: none;
+      transition: all 0.2s;
+    }
+    .lang-btn:hover {
+      transform: scale(1.06);
+      background: #dfe6e9;
+    }
+  </style>
+</head>
+<body>
+
+  <center>
+    <h1 id="txt_main_heading">Kan Laktat Eşiğinin Polinominal Modelleri</h1>
+    <span id="txt_copyright_1">Copyright © 2013, P. Lutus — PolySolve (07.20.2013) JavaScript Sürümünden Uyarlanmıştır.</span><br>
+    <span id="txt_copyright_2">Copyright © 2014, Uyarlama Rafet IRMAK</span>
+  </center>
+
+  <div class="article_wrapper">
+    <a name="The_Program"></a>
+    <div class="article_subtopic">
+      <span id="txt_subtopic">Kan Laktat Eşiği Hesaplayıcısı</span>
+      <span class="lang-btn" onclick="poly.toggleLanguage()" id="btn_lang" title="Dil Değiştir / Change Language">🇬🇧 EN</span>
+    </div>
+    <div class="roundcorner_16_parch_content">
+
+      <p style="width:860px">
+        <b id="txt_data_entry_label">İş Yükü Kan Laktat Eşiği Veri Girişi:</b>
+        <span style="color:gray;">
+          <span class="hovernote" id="tip_data_entry_note" title="Analiz için veri girişini bu pencereden yapın. Veriler ardışık x,y çiftleri halinde sıralanmalıdır."></span>
+        </span>
+        <span style="color:gray;float:right;" id="txt_shortcuts_1">Seç: Ctrl+A | Kopyala: Ctrl+C | Yapıştır: Ctrl+V</span>
+      </p>
+
+      <code>
+        <div class="data_entry shadow">
+<textarea class="scroll_textarea" id="data_entry" title="Enter or paste x,y paired data in this window (don't use commas as delimiters)" onkeyup="poly.generate_result();" oninput="poly.generate_result();">
+0 1
+60 1.5
+80 2
+100 2.5
+120 3.5
+140 5
+160 8
+180 12
+</textarea>
+        </div>
+      </code>
+
+      <p>
+        <b><span id="txt_curve_title">İş Yükü Kan Laktat Eşiği Eğrisi:</span><span class="hovernote" id="tip_curve_note" title="Bu grafik polinomun verilerle ne kadar uyumlu olduğunu değerlendirmek için kullanılabilir"></span></b>
+        <br>
+        <b id="txt_curve_hint">Hesaplanmış laktat ve iş yükü değerlerini görmek için, fareyi sol tuşa basarak grafik üstünde gezdirin.</b>
+      </p>
+
+      <div id="chart_wrapper">
+        <!-- chart graphic div -->
+        <div id="textPane0" class="text_graph">
+          <canvas id="graphicPane1" class="canvas_graph shadow"></canvas>
+        </div>
+        <!-- chart text div -->
+        <div id="textPane1" class="text_graph" title="Click chart for specific values">
+        </div>
+      </div><!-- chart wrapper -->
+
+      <div id="control_panel" class="control_panel shadow">
+        <table border="0" class="control_table">
+          <tr>
+            <td id="txt_degree_label">Polinominal Regresyon Derecesi:</td>
+
+            <td id="td_dec_degree" title="Polinom derecesini azalt (1-3)">
+              <button onclick="poly.adjust_degree(-1);"><img src="kaynak_dosyalar/arrow-left.png" width="22" height="22" title="" alt=""/></button>
+            </td>
+
+            <td id="td_cur_degree" title="Mevcut polinom derecesi">
+              <span class="num_disp" id="poly_degree_field">2</span>
+            </td>
+
+            <td id="td_inc_degree" title="Polinom derecesini artır (1-3)">
+              <button onclick="poly.adjust_degree(1);"><img src="kaynak_dosyalar/arrow-right.png" width="22" height="22" title="" alt=""/></button>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <p style="width:860px">
+        <b id="txt_result_heading">Sonuç:</b><span class="hovernote" id="tip_result_note" title="Polinom analiz sonuçlarını incelemek ve/veya kopyalamak için bu pencereyi kullanın"></span>
+        <span id="txt_result_explanation">
+          <br> Regresyon Modeli fizyolojik nedenselliğe uygun olarak iş yükü (x) – laktat (y) ilişkisini (y = f(x)) modeller ve sabit laktat eşiklerine (2.0, 2.5 ve 4.0 mmol/L) karşılık gelen iş yüklerini denklemi tersine çözerek (ters kestirim) hesaplar.<br>
+        </span>
+        <span style="color:gray;float:right;" id="txt_shortcuts_2">Seç: Ctrl+A | Kopyala: Ctrl+C | Yapıştır: Ctrl+V</span>
+      </p>
+
+      <div class="data_entry shadow">
+        <textarea title="Copy results from this window" id="results_area" class="scroll_textarea"></textarea>
+      </div>
+
+      <p style="width:860px">
+        <b id="txt_table_heading">Tablo:</b><span class="hovernote" id="tip_table_note" title="Yukarıda üretilen polinom katsayılarına dayalı bir x,y veri tablosu oluşturmak için bu pencereyi kullanın"></span>
+        <span style="color:gray;float:right;" id="txt_shortcuts_3">Seç: Ctrl+A | Kopyala: Ctrl+C | Yapıştır: Ctrl+V</span>
+      </p>
+
+      <div class="data_entry shadow">
+        <textarea title="Click &quot;Generate Table&quot; below, then copy results from this window" id="table_results_area" class="scroll_textarea"></textarea>
+      </div>
+
+      <div id="table_control_panel" class="control_panel shadow">
+        <table border="0" class="control_table">
+          <tr>
+            <td id="txt_tbl_start">Başlangıç:</td>
+            <td><input id="table_start" type="text" title="Enter a table x start value" class="value_field"></td>
+            <td id="txt_tbl_end">Bitiş:</td>
+            <td><input id="table_end" type="text" title="Enter a table x end value" class="value_field"></td>
+            <td id="txt_tbl_step">Adım:</td>
+            <td><input id="table_step" type="text" title="Enter a table x step value (the distance between rows)" class="value_field"></td>
+            <td id="txt_tbl_decimals">Ondalık:</td>
+            <td><input id="table_decimals" title="Enter the desired decimal precision" type="text" value="2" class="value_field"></td>
+            <td>
+              <button id="generate_table_button" title="Generate a comma-separated-value (CSV) table and put the results in the window above" onClick="poly.generate_table();">
+                <img src="kaynak_dosyalar/view-pim-journal.png" style="vertical-align:middle;" width="22" height="22" title="" alt=""/>&nbsp;&nbsp;<span id="txt_btn_create_table">Tablo Oluştur</span>
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
